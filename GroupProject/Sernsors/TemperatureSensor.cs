@@ -9,27 +9,31 @@ namespace GroupProject.Sernsors
     internal class TemperatureSensor : ISensor
     {
         string functionName = "(8sin(0.3x-3)+8)*64";
-        public DataTemplate GetData()
+
+        int Interval = 5; //sensor updates each 5s
+
+        public SaveData GetData()
         {
-            DataTemplate data = new DataTemplate();
-            data.data = GatherData();
-            data.functionCollect = this.functionName;
+            SaveData data = new SaveData();
+            data.value = GatherData();
+            data.time = DateTime.Now;
             return data;
         }
 
         public double GatherData()
         {
-            int nowHours = DateTime.Now.Hour;
-            int nowMinutes = DateTime.Now.Minute;
-         
-            double nowTime = nowHours + nowMinutes/60;
-            return TemperatureFunction(nowHours);
+
+            DateTime nowHours = DateTime.Now;
+            double nowseconds = DateTime.Now.Second;
+
+
+            return TemperatureFunction(nowseconds);
         }
 
-        private double TemperatureFunction(double nowHour)
+        private double TemperatureFunction(double nowTime)
         {
             //return values from 0 - 1024
-            return 64 * (8 * Math.Sin(0.3 * nowHour - 3) + 8);
+            return 64 * (8 * Math.Sin(0.11 * nowTime - 3) + 8);
         }
 
     }

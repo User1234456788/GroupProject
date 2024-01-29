@@ -9,16 +9,17 @@ namespace GroupProject.Algorithms
 {
     internal class TemperatureAlgorithms : IAlgorithm
     {
-        public double getAlgorithmResult(DataTemplate data)
+        
+        public SaveData getAlgorithmResult(SaveData data)
         {
             double sensorData = getSensorData(data);
-            double temperature = processData(sensorData);
-            return temperature;
+            data.value = processData(sensorData);
+            return data;
         }
 
-        public double getSensorData(DataTemplate data)
+        public double getSensorData(SaveData data)
         {
-            return data.data;
+            return data.value;
         }
 
         public double processData(double sensorMark)

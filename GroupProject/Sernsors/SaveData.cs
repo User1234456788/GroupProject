@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GroupProject.Sernsors
 {
-    internal class DataTemplate
+    internal class SaveData
     {
-        public double data { get; set;}
-        public string functionCollect { get; set;}
+        public double value { get; set;}
+        public DateTime time { get; set;}
     }
 }

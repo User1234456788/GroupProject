@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GroupProject.Algorithms;
+using GroupProject.Sernsors;
+using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -21,6 +16,8 @@ namespace GroupProject
         }
 
         private int _coutSeconds = 0;
+        //data for chart
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -31,6 +28,7 @@ namespace GroupProject
 
             chart1.ChartAreas[0].AxisX.LabelStyle.Format = "H:mm:ss";
             chart1.Series[0].XValueType = ChartValueType.DateTime;
+            chart1.Series[1].XValueType = ChartValueType.DateTime;
 
             chart1.ChartAreas[0].AxisX.Minimum = DateTime.Now.ToOADate();
             chart1.ChartAreas[0].AxisX.Maximum = DateTime.Now.AddMinutes(1).ToOADate();
@@ -41,8 +39,8 @@ namespace GroupProject
 
         void FillChart()
         {
-            chart1.Series["Series1"].XValueMember = "Time";
-            chart1.Series["Series1"].YValueMembers = "Temperature";
+            chart1.Series["Series1"].XValueMember = "SensorValue";
+            chart1.Series["Series1"].YValueMembers = "Time";
             chart1.Titles.Add("SensorsDisplay");
         }
 
@@ -51,21 +49,50 @@ namespace GroupProject
             DateTime timeNow = DateTime.Now;
             int value = Convert.ToInt32(numeric.Value);
 
-            chart1.Series[0].Points.AddXY(timeNow, value);
+            //display data on every timer tick
 
-            if (_coutSeconds >= 60)
+            chart1.Series[0].Points.AddXY(timeNow, value);
+            chart1.Series[1].Points.AddXY(timeNow, value+5);
+
+            //
+
+            _coutSeconds++;
+            //if chart if full clear it and start again
+            if (_coutSeconds == 60)
             {
-                
+                _coutSeconds = 0;
 
                 chart1.ChartAreas[0].AxisX.Minimum = DateTime.Now.ToOADate();
                 chart1.ChartAreas[0].AxisX.Maximum = DateTime.Now.AddMinutes(1).ToOADate();
 
-                chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Seconds;
-                chart1.ChartAreas[0].AxisX.Interval = 5;
             }
+        }
+
+        private SaveData getXYFromsensor(IAlgorithm algorithm)
+        {
+            //SaveData xy = algorithm.getAlgorithmResult;
 
 
 
+
+
+            return xy;
+        }
+
+
+        private void radionButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Text = "Humiditu";
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Text = "Temperature";
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Text = "Brightness";
         }
     }
 }

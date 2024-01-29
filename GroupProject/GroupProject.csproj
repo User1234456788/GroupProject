@@ -71,7 +71,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sernsors\DataTemplate.cs" />
+    <Compile Include="Sernsors\SaveData.cs" />
     <Compile Include="Sernsors\ISensor.cs" />
     <Compile Include="Sernsors\TemperatureSensor.cs" />
     <EmbeddedResource Include="Form1.resx">

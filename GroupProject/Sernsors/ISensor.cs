@@ -8,7 +8,7 @@ namespace GroupProject.Sernsors
 {
     internal interface ISensor
     {
-        DataTemplate GetData();
+        SaveData GetData();
 
         double GatherData();
 
