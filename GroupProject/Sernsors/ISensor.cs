@@ -8,9 +8,10 @@ namespace GroupProject.Sernsors
 {
     internal interface ISensor
     {
-        SaveData GetData();
+        Task StartSensor();
+        void stopSensor();
 
-        double GatherData();
+        double getSensorResult();
 
     }
 }

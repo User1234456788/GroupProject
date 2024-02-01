@@ -9,10 +9,10 @@ namespace GroupProject.Algorithms
 {
     internal interface IAlgorithm
     {
-        double getSensorData(SaveData data);
+        Task runAlgotithm(double valueFromSensor);
+
+        SaveData getAlgorithmResult(double valueFromSensor);
 
         double processData(double sensorMark);
-
-        SaveData getAlgorithmResult(SaveData data);
     }
 }

@@ -9,18 +9,25 @@ namespace GroupProject.Algorithms
 {
     internal class TemperatureAlgorithms : IAlgorithm
     {
-        
-        public SaveData getAlgorithmResult(SaveData data)
+        double temperature = 0;
+        public async Task runAlgotithm(double valueFromSensor)
         {
-            double sensorData = getSensorData(data);
-            data.value = processData(sensorData);
-            return data;
+            double temperature = processData(valueFromSensor);
+            this.temperature = temperature;
+            Task.WaitAny();
         }
 
-        public double getSensorData(SaveData data)
+        public SaveData getAlgorithmResult(double valueFromSensor)
         {
-            return data.value;
+            runAlgotithm(valueFromSensor);
+            DateTime timeNow = DateTime.Now;
+            SaveData saveData = new SaveData();
+            saveData.time = timeNow;
+            saveData.value = this.temperature;
+
+            return saveData;
         }
+
 
         public double processData(double sensorMark)
         {

@@ -23,7 +23,7 @@ namespace GroupProject
         {
             timer1.Enabled = true;
 
-            chart1.ChartAreas[0].AxisY.Maximum = 30;
+            chart1.ChartAreas[0].AxisY.Maximum = 30;    
             chart1.ChartAreas[0].AxisY.Minimum = -30;
 
             chart1.ChartAreas[0].AxisX.LabelStyle.Format = "H:mm:ss";
@@ -46,13 +46,21 @@ namespace GroupProject
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //Test
+            TemperatureSensor sensor = new TemperatureSensor();
+            TemperatureAlgorithms algorithms = new TemperatureAlgorithms();
+
+            sensor.StartSensor();
+            int sensorValue = (int)sensor.getSensorResult();
+            SaveData value = algorithms.getAlgorithmResult(sensorValue);
+
+            //
             DateTime timeNow = DateTime.Now;
-            int value = Convert.ToInt32(numeric.Value);
 
             //display data on every timer tick
 
-            chart1.Series[0].Points.AddXY(timeNow, value);
-            chart1.Series[1].Points.AddXY(timeNow, value+5);
+            chart1.Series[0].Points.AddXY(value.time, value.value);
+            chart1.Series[1].Points.AddXY(timeNow, value.value);
 
             //
 
@@ -68,16 +76,6 @@ namespace GroupProject
             }
         }
 
-        private SaveData getXYFromsensor(IAlgorithm algorithm)
-        {
-            //SaveData xy = algorithm.getAlgorithmResult;
-
-
-
-
-
-            return xy;
-        }
 
 
         private void radionButton2_CheckedChanged(object sender, EventArgs e)
